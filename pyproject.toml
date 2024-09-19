@@ -103,7 +103,7 @@ file = "README.md"
 pycasx = "pycasx.cli.cli:main"
 
 [project.urls]
-Documentation = "https://DLR-KI.github.io/pycasx/"
+Documentation = "https://pycasx.readthedocs.io/"
 Homepage = "https://github.com/DLR-KI/pycasx.git"
 Source = "https://github.com/DLR-KI/pycasx.git"
 Tracker = "https://github.com/DLR-KI/pycasx/-/issues"

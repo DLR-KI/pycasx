@@ -6,28 +6,35 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # `pyCASX` &ndash; A Python implementation of ACAS X<sub>A</sub> and ACAS X<sub>U</sub> for Flightgear
 
+[![The latest version of pycasx can be found on PyPI.](https://img.shields.io/pypi/v/pycasx.svg)](https://pypi.python.org/pypi/pycasx)
+[![Information on what versions of Python pycasx supports can be found on PyPI.](https://img.shields.io/pypi/pyversions/pycasx.svg)](https://pypi.python.org/pypi/pycasx)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/DLR-KI/pycasx/main.svg)](https://results.pre-commit.ci/latest/github/DLR-KI/pycasx/main)
+[![Docs status](https://readthedocs.org/projects/pycasx/badge/)](https://pycasx.readthedocs.io/)
+[![REUSE status](https://api.reuse.software/badge/github.com/DLR-KI/pycasx)](https://api.reuse.software/info/github.com/DLR-KI/pycasx)
+
 Implementation of ACAS X<sub>A</sub> and ACAS X<sub>U</sub> with neural networks for FlightGear.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Description](#description)
-- [Installation](#installation)
-  - [Requirements](#requirements)
-  - [Users](#users)
-    - [Installation via `pipx`](#installation-via-pipx)
-    - [Installation via `pip`](#installation-via-pip)
-  - [Development](#development)
-  - [`pre-commit`](#pre-commit)
-  - [VS Code](#vs-code)
-- [Usage](#usage)
-  - [Launching ACAS X](#launching-acas-x)
-  - [Other options](#other-options)
-    - [`onnx` or `make_onnx`](#onnx-or-make_onnx)
-    - [`launch`](#launch)
-    - [`acasx`](#acasx)
-  - [Overwriting parameters](#overwriting-parameters)
-- [Citation](#citation)
+- [`pyCASX` – A Python implementation of ACAS XA and ACAS XU for Flightgear](#pycasx--a-python-implementation-of-acas-xa-and-acas-xu-for-flightgear)
+  - [Description](#description)
+  - [Installation](#installation)
+    - [Requirements](#requirements)
+    - [Users](#users)
+      - [Installation via `pipx`](#installation-via-pipx)
+      - [Installation via `pip`](#installation-via-pip)
+    - [Development](#development)
+    - [`pre-commit`](#pre-commit)
+    - [VS Code](#vs-code)
+  - [Usage](#usage)
+    - [Launching ACAS X](#launching-acas-x)
+    - [Other options](#other-options)
+      - [`onnx` or `make_onnx`](#onnx-or-make_onnx)
+      - [`launch`](#launch)
+      - [`acasx`](#acasx)
+    - [Overwriting parameters](#overwriting-parameters)
+  - [Citation](#citation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
