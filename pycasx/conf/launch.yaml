@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+# General
+background: false
+disable_sound: true
+fg_root:
+fgfs:
+timeout: 0  # Timeout can be set to <= 0 to disable it
+fgfsrc:
+
+# Connections
+httpd: 5050
+telnet:
+  port: 5500
+  rate: 150
+
+# Ownship
+aircraft: 737-200
+altitude: 10000
+heading: 0
+lat: 64.781531
+lon: -22.65
+pitch: 0
+roll: 0
+vc: 451
+# All config files have to be stored in the assets/flightgear/conf directory
+config:
+- multipleCamerasInOneWindow.xml
+prop:
+  /autopilot/settings/target-speed-kt: 451
+  /autopilot/locks/speed: speed-with-throttle
+  /autopilot/settings/target-altitude-ft: 10000
+  /autopilot/locks/altitude: altitude-hold
+  /autopilot/locks/heading: wing-leveler
+
+# Environment
+timeofday: noon
+wind: 0@0
+
+# Intruder
+ai_scenario: Collision_V1

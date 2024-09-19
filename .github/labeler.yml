@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+General:
+- changed-files:
+  - any-glob-to-any-file:
+    - '*'
+
+GitHub:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/**
+
+Workflows:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/workflows/**
+
+Dependabot:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/dependabot.yml
+
+Labels:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/labeler.yml
+    - .github/workflows/labeler.yml
+
+Documentation:
+- changed-files:
+  - any-glob-to-any-file:
+    - docs/*
+    - '**/*.md'
+
+Python:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/*.py'
+    - '**/*.pyi'
+    - '**/*.pyx'
+    - pyproject.toml
+
+Tests:
+- changed-files:
+  - any-glob-to-any-file:
+    - tests/**
+    - .github/workflows/pytest.yml
+
+Packaging:
+- changed-files:
+  - any-glob-to-any-file:
+    - pyproject.toml
+    - VERSION
+
+pre-commit:
+- changed-files:
+  - any-glob-to-any-file:
+    - .pre-commit-config.yaml

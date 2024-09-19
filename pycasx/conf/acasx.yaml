@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+update_rate: 5
+
+backend: nnet
+
+autoavoid:
+  active: false
+  mode: hcas
+
+api:
+  host: 0.0.0.0
+  port: 8008
+
+logger:
+  active: true
+  log_folder: logs
+  include_date: true
+  files:
+    state: state.json
+    autoavoid: autoavoid.json
+    ownship: ownship.json
+    intruders: intruders.json
+
+adsb:
+  host: localhost  # Host of the FlightGear instance (aka the property tree server)
+  port: 5050  # Port of the FlightGear instance (aka the property tree server)

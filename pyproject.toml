@@ -1,0 +1,188 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools >= 62.3.0",
+  "wheel"
+]
+
+[project]
+authors = [{name = "Johann Christensen", email = "johann.christensen@dlr.de"}]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: X11 Applications",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows :: Windows 10",
+  "Operating System :: Microsoft :: Windows :: Windows 11",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Games/Entertainment :: Simulation",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed"
+]
+dependencies = [
+  "flightgear-python==1.6.0",
+  "fastapi[all]==0.105.0",
+  "hydra-core==1.3.2",
+  "loguru==0.7.2",
+  "lxml==5.1.0",
+  "numpy==1.24.4",
+  "onnx==1.14.1",
+  "onnx2torch==1.5.12",
+  "onnxruntime==1.16.1",
+  "pillow==10.1.0",
+  "pint==0.21.1",
+  "pyproj==3.5.0",
+  "libtmux==0.31.0.post0",
+  "scipy==1.10.1",
+  "torch==2.1.0",
+  "tqdm==4.66.2",
+  "rich==13.7.1"
+]
+description = "A Python implementation of ACAS XA and ACAS XU for Flightgear."
+dynamic = ["version"]
+license = {file = "LICENSES/MIT.txt"}
+name = "pycasx"
+requires-python = ">=3.8,<3.12"
+
+[project.optional-dependencies]
+all = ["pycasx[dev,docs,tests]"]
+dev = [
+  "lxml-stubs",
+  "pre-commit>=3.5.0",
+  "reuse>=4.0.0"
+]
+docs = [
+  "sphinx==7.1.2",
+  "sphinx-autodoc-typehints==1.25.2",
+  "sphinx-rtd-theme==2.0.0",
+  "sphinx-autoapi==3.0.0"
+]
+full = ["pycasx[all]"]
+tests = [
+  "coverage",
+  "flake8-bugbear",
+  "flake8-builtins",
+  "flake8-comprehensions",
+  "flake8-docstrings-complete",
+  "flake8-docstrings",
+  "flake8-pyproject",
+  "flake8-simplify",
+  "flake8",
+  "mypy",
+  "parameterized",
+  "pep8-naming",
+  "pycodestyle",
+  "pydoclint",
+  "pylint-per-file-ignores",
+  "pylint",
+  "pytest-cov",
+  "pytest>=7.4.0",
+  "shapely",
+  "types-requests"
+]
+
+[project.readme]
+content-type = "text/markdown; charset=UTF-8"
+file = "README.md"
+
+[project.scripts]
+pycasx = "pycasx.cli.cli:main"
+
+[project.urls]
+Documentation = "https://DLR-KI.github.io/pycasx/"
+Homepage = "https://github.com/DLR-KI/pycasx.git"
+Source = "https://github.com/DLR-KI/pycasx.git"
+Tracker = "https://github.com/DLR-KI/pycasx/-/issues"
+
+[tool.flake8]
+check-return-types = true
+# E203: incorrectly triggers on array slices: <https://github.com/PyCQA/pycodestyle/issues/373>
+# SIM300: Yoda conditions might be more reliable but not more readable
+# D107: Google docstring style prevents docstrings in __init__ function
+# D401: Imperative mood is not always detectet correctly
+# DCO010: Google docstring style prevents docstrings in __init__ function <https://github.com/jdkandersson/flake8-docstrings-complete/issues/15>
+extend-ignore = "E203, SIM300, D107, D401, DCO010"
+max-complexity = "10"
+max-line-length = "88"
+# pycasx/connectors/protocols.py: Ignore returns not matching for protocol functions
+# pycasx/tools/NNet/**/*.py: Ignore missing docstrings for classes from other sources
+# pycasx/tools/NNet/nnet.py: Ignore camel case names for classes from other sources
+# **/__init__.py: Ignore docstring style for __init__.py files
+# tests/*: Ignore docstring style for tests
+per-file-ignores = [
+  "pycasx/connectors/protocols.py: DCO031",
+  "pycasx/tools/NNet/**/*.py: D",
+  "pycasx/tools/NNet/nnet.py: N806, D",
+  "**/__init__.py: D",
+  "tests/*: D"
+]
+style = "google"
+
+[tool.mypy]
+ignore_missing_imports = true
+plugins = ["numpy.typing.mypy_plugin"]
+python_version = "3.8"
+
+[tool.pylint.MASTER]
+extension-pkg-whitelist = [
+  "lxml"
+]
+load-plugins = [
+  "pylint_per_file_ignores"
+]
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = "88"
+
+[tool.pylint.SIMILARITIES]
+ignore-comments = "yes"
+ignore-docstrings = "yes"
+ignore-imports = "yes"
+min-similarity-lines = 10
+
+[tool.pylint-per-file-ignores]
+# docs/conf.py: Ignore constant name not UPPER_CASE (C0103) and redefining built-in (W0622) for copyright notice
+# pycasx/cli/cli.py: Ignore importing outside of top level (E1120) and redefining from outer scope (W0621) for speed-up; Ignore no value for cfg (C0415) as it is a Hydra feature
+# pycasx/tools/NNet/**/*.py: Ignore missing docstrings for classes from other sources
+# pycasx/tools/NNet/nnet.py: Ignore camel case names for classes from other sources
+"docs/conf.py" = "C0103,W0622"
+"pycasx/cli/cli.py" = "E1120,W0621,C0415"
+"pycasx/tools/NNet/" = "C0116"
+"pycasx/tools/NNet/nnet.py" = "C0103"
+
+[tool.setuptools]
+include-package-data = true
+license-files = ["LICENSES/*.txt"]
+platforms = [
+  "macosx_13_x86_64",
+  "manylinux2014_x86_64",
+  "win_amd64"
+]
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {file = ["VERSION"]}
+
+[tool.setuptools.package-data]
+"pycasx" = [
+  "assets/**",
+  "py.typed",
+  "conf/**/*.yaml"
+]
+
+[tool.setuptools.packages]
+find = {namespaces = false}

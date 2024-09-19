@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+# General
+window:
+  width: 1024
+  height: 720
+
+# Connections
+default_connection: http
+http:
+  host: localhost
+  port: 5050
+telnet:
+  host: localhost
+  port: 5500
+api:
+  host: localhost
+  port: 8008

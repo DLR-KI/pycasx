@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+name: Linting Python code (flake8)
+
+on:
+  push:
+    branches:
+    - main
+    - develop
+    - releases/**
+  pull_request:
+    branches:
+    - main
+    - develop
+
+permissions:
+  contents: read
+
+jobs:
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.8
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .[tests]
+    - name: Lint with flake8
+      run: |
+        flake8 pycasx

@@ -1,0 +1,132 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+# Here are some commonly used pre-commit hooks. You can find more at:
+# <https://github.com/pre-commit/pre-commit-hooks>
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.6.0
+  hooks:
+  - id: check-ast
+  - id: check-builtin-literals
+  - id: check-case-conflict
+  - id: check-docstring-first
+  - id: check-executables-have-shebangs
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-shebang-scripts-are-executable
+  - id: check-toml
+  - id: check-yaml
+  - id: debug-statements
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+- repo: https://github.com/fsfe/reuse-tool
+  rev: v4.0.3
+  hooks:
+  - id: reuse
+    name: Check license headers (REUSE)
+- repo: https://github.com/FHPythonUtils/LicenseCheck
+  rev: '2024.2'
+  hooks:
+  - id: licensecheck
+    language: python
+    name: Check licenses of Python dependencies
+    args: [--using, PEP631, --skip-dependencies, torch]
+- repo: https://github.com/citation-file-format/cffconvert
+  rev: b6045d78aac9e02b039703b030588d54d53262ac
+  hooks:
+  - id: validate-cff
+    name: Validate CITATION.cff file
+- repo: https://github.com/psf/black
+  rev: 24.8.0
+  hooks:
+  - id: black
+    name: Formatting Python code (black)
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
+  hooks:
+  - id: isort
+    args: [--profile, black]
+    name: Sort Python imports (isort)
+- repo: https://github.com/thlorenz/doctoc
+  rev: v2.2.0
+  hooks:
+  - id: doctoc
+    name: Generate table of contents for markdown files
+    args: [--github]
+    exclude: CODE_OF_CONDUCT.md
+- repo: https://github.com/codespell-project/codespell
+  rev: v2.3.0
+  hooks:
+  - id: codespell
+    name: Fixing common spelling mistakes
+    args: [--write-changes, -L, assertIn]
+- repo: https://github.com/python-jsonschema/check-jsonschema
+  rev: 0.29.2
+  hooks:
+  - id: check-github-workflows
+    name: Check GitHub Workflow configuration
+- repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+  rev: 3.0.3
+  hooks:
+  - id: editorconfig-checker
+    exclude: docs/guide/api.rst
+- repo: https://github.com/PyCQA/docformatter
+  rev: v1.7.5
+  hooks:
+  - id: docformatter
+    name: Fixing docstring formatting
+- repo: https://github.com/igorshubovych/markdownlint-cli
+  rev: v0.41.0
+  hooks:
+  - id: markdownlint
+    name: Fixing markdown linting errors
+    args: [--disable, MD013, MD033, --fix]
+- repo: https://github.com/MarcoGorelli/absolufy-imports
+  rev: v0.3.1
+  hooks:
+  - id: absolufy-imports
+    name: Make python imports absolute
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.15.2
+  hooks:
+  - id: pyupgrade
+    name: Upgrade common mistakes
+    args: [--py38-plus]
+- repo: https://github.com/PyCQA/flake8
+  rev: 7.1.1
+  hooks:
+  - id: flake8
+    name: Linting Python code (flake8)
+    additional_dependencies:
+    - flake8-bugbear
+    - flake8-builtins
+    - flake8-comprehensions
+    - flake8-docstrings
+    - flake8-docstrings-complete
+    - flake8-simplify
+    - flake8-pyproject
+    - pep8-naming
+    - pydoclint
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: v0.6.4
+  hooks:
+  - id: ruff
+    name: Linting Python code (ruff)
+    args: [--fix, --exit-non-zero-on-fix]
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.14.0
+  hooks:
+  - id: pretty-format-yaml
+    args: [--autofix, --indent, '2', CITATION.cff]
+  - id: pretty-format-toml
+    args: [--autofix]
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.11.2
+  hooks:
+  - id: mypy
+    name: Static typechecking (mypy)
+    exclude: ^tests/
+    additional_dependencies:
+    - numpy==1.24.4
+    - types-requests

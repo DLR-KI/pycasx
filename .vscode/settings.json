@@ -1,0 +1,90 @@
+{
+  "git.inputValidationSubjectLength": 50,
+  "git.inputValidationLength": 72,
+  "git.inputValidation": true,
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.rulers": [
+      88,
+      79,
+      72
+    ],
+    "editor.tabSize": 4
+  },
+  "cSpell.language": "en",
+  "cSpell.words": [
+    "ACAS",
+    "ACASX",
+    "addprevious",
+    "ADSB",
+    "aircraft",
+    "appendleft",
+    "argmax",
+    "autoavoid",
+    "callsign",
+    "cas",
+    "customtkinter",
+    "dtype",
+    "ellps",
+    "ensurepath",
+    "Errico",
+    "fastapi",
+    "fgfs",
+    "fgfsrc",
+    "flightgear",
+    "flightplan",
+    "flightplans",
+    "hcas",
+    "hdot",
+    "imdecode",
+    "IMREAD",
+    "INOP",
+    "inoperational",
+    "ktas",
+    "loguru",
+    "lxml",
+    "multiplay",
+    "nmac",
+    "nnet",
+    "onnx",
+    "ownship",
+    "pipx",
+    "pycasx",
+    "pyproj",
+    "SDES",
+    "slugft",
+    "starlette",
+    "terrasync",
+    "timeofday",
+    "ultralytics",
+    "ureg",
+    "uvicorn",
+    "vcas",
+    "YOLO"
+  ],
+  "isort.args": [
+    "--profile",
+    "black"
+  ],
+  "isort.check": true,
+  "python.analysis.autoImportCompletions": true,
+  "terminal.integrated.env.linux": {
+    "GTK_PATH": ""
+  },
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "./tests",
+    "-p",
+    "test_*.py"
+  ],
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestEnabled": true,
+  "python.analysis.typeCheckingMode": "standard"
+}

@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+timeout: 90  # Timeout can be set to <= 0 to disable it
+venv_path:  # Path to the virtual environment

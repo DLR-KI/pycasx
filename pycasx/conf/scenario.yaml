@@ -1,0 +1,76 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+# General scenario configuration
+dest_folder: scenarios
+n_scenarios: 1
+sort_by_uuid: false  # Sort scenarios by UUID into separate folders
+
+# Collision configuration
+time_to_cpa: 60s
+weights:
+  colliding: 1
+  parallel: 0
+  skewed: 0
+colliding:
+  altitude:
+    spread: 500ft
+    alpha: 6
+    beta: 6
+  heading:
+    min_: 45°
+    max_: 315°
+  speed:
+    min_: 451kt
+    max_: 451kt
+parallel:
+  altitude:
+    spread: 500ft
+    alpha: 6
+    beta: 6
+  horizontal:
+    spread: 2000ft
+    alpha: 4
+    beta: 4
+  speed:
+    min_: 451kt
+    max_: 451kt
+
+# FlightGear
+headless: false
+disable_sound: true
+httpd: 5050
+telnet:
+  port: 5500
+  rate: 150
+
+# Ownship
+aircraft: 737-200
+altitude: 10000ft
+heading: 0°
+lat: 50.776106°
+lon: 7.185820°
+pitch: 0°
+roll: 0°
+vc: 451kt
+
+config:
+prop:
+  /autopilot/settings/target-speed-kt: 451
+  /autopilot/locks/speed: speed-with-throttle
+  /autopilot/settings/target-altitude-ft: 10000
+  /autopilot/locks/altitude: altitude-hold
+  /autopilot/locks/heading: wing-leveler
+  /sim/speed-up: 1
+
+# Environment
+timeofday: noon
+wind: 0@0
+
+# Intruder
+min_intruders: 1
+max_intruders: 1
+intruder:
+  type_: aircraft
+  class_: jet
+  model: Aircraft/737-200/Models/737-200.xml

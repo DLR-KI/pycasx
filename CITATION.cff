@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+authors:
+- affiliation: German Aerospace Center (DLR)
+  email: johann.christensen@dlr.de
+  family-names: Christensen
+  given-names: Johann Maximilian
+  name-particle: Johann
+  orcid: https://orcid.org/0000-0001-9871-122X
+- affiliation: German Aerospace Center (DLR)
+  family-names: Anilkumar Girija
+  given-names: Akshay
+  orcid: https://orcid.org/0000-0002-4384-9739
+- affiliation: German Aerospace Center (DLR)
+  family-names: Stefani
+  given-names: Thomas
+  orcid: https://orcid.org/0000-0001-7352-0590
+- affiliation: German Aerospace Center (DLR)
+  family-names: Durak
+  given-names: Umut
+  orcid: https://orcid.org/0000-0002-2928-1710
+- affiliation: German Aerospace Center (DLR)
+  family-names: Hoemann
+  given-names: Elena
+  orcid: https://orcid.org/0000-0001-9315-548X
+- affiliation: German Aerospace Center (DLR)
+  family-names: Köster
+  given-names: Frank
+- affiliation: German Aerospace Center (DLR)
+  family-names: Krüger
+  given-names: Thomas
+- affiliation: German Aerospace Center (DLR)
+  family-names: Hallerbach
+  given-names: Sven
+cff-version: 1.2.0
+date-released: '2024-10-01'
+message: If you use this software, please cite it using the metadata from this file.
+preferred-citation:
+  authors:
+  - family-names: Christensen
+    given-names: Johann Maximilian
+  - family-names: Anilkumar Girija
+    given-names: Akshay
+  - family-names: Stefani
+    given-names: Thomas
+  - family-names: Durak
+    given-names: Umut
+  - family-names: Hoemann
+    given-names: Elena
+  - family-names: Köster
+    given-names: Frank
+  - family-names: Krüger
+    given-names: Thomas
+  - family-names: Hallerbach
+    given-names: Sven
+  conference:
+    name: 36th IEEE International Conference on Tools with Artificial Intelligence (ICTAI)
+  date-released: '2024-10-01'
+  title: Advancing the AI-Based Realization of ACAS X Towards Real-World Application
+  type: conference-paper
+repository-code: https://github.com/DLR-KI/pycasx.git
+title: Advancing the AI-Based Realization of ACAS X Towards Real-World Application

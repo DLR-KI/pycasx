@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+name: Pull Request Labeler
+
+on:
+  pull_request_target:
+  workflow_dispatch:
+  schedule:
+  - cron: 0 1 * * 1
+
+jobs:
+  triage:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v5
+      with:
+        sync-labels: true

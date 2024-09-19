@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
+#
+# SPDX-License-Identifier: MIT
+version: '2'
+plugins:
+  pycodestyle:
+    enabled: true
+    config:
+      max_line_length: 88
+  sonar-python:
+    enabled: true
+    config:
+      minimum_severity: major
+  radon:
+    enabled: true
