@@ -1,6 +1,10 @@
 # SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
 #
 # SPDX-License-Identifier: MIT
+# CI Settings
+ci:
+    skip: [mypy]  # Apparently, mypy on pre-commit.ci uses Python 3.12 for which numpy 1.24.4 is not available
+
 # Here are some commonly used pre-commit hooks. You can find more at:
 # <https://github.com/pre-commit/pre-commit-hooks>
 repos:
