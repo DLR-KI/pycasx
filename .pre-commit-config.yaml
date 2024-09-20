@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 # CI Settings
 ci:
-    skip: [mypy]  # Apparently, mypy on pre-commit.ci uses Python 3.12 for which numpy 1.24.4 is not available
+  skip: [mypy]    # Apparently, mypy on pre-commit.ci uses Python 3.12 for which numpy 1.24.4 is not available
 
 # Here are some commonly used pre-commit hooks. You can find more at:
 # <https://github.com/pre-commit/pre-commit-hooks>
@@ -30,7 +30,7 @@ repos:
   - id: reuse
     name: Check license headers (REUSE)
 - repo: https://github.com/FHPythonUtils/LicenseCheck
-  rev: '2024.3'
+  rev: '2024.2'
   hooks:
   - id: licensecheck
     language: python
@@ -92,7 +92,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.17.0
+  rev: v3.16.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
@@ -113,7 +113,7 @@ repos:
     - pep8-naming
     - pydoclint
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.6.5
+  rev: v0.6.6
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
