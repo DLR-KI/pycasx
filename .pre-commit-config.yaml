@@ -26,7 +26,7 @@ repos:
   - id: reuse
     name: Check license headers (REUSE)
 - repo: https://github.com/FHPythonUtils/LicenseCheck
-  rev: '2024.2'
+  rev: '2024.3'
   hooks:
   - id: licensecheck
     language: python
@@ -88,7 +88,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.15.2
+  rev: v3.17.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
@@ -109,7 +109,7 @@ repos:
     - pep8-naming
     - pydoclint
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.6.4
+  rev: v0.6.5
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
