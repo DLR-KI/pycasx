@@ -11,6 +11,7 @@ SPDX-License-Identifier: CC-BY-4.0
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/DLR-KI/pycasx/main.svg)](https://results.pre-commit.ci/latest/github/DLR-KI/pycasx/main)
 [![Docs status](https://readthedocs.org/projects/pycasx/badge/)](https://pycasx.readthedocs.io/)
 [![REUSE status](https://api.reuse.software/badge/github.com/DLR-KI/pycasx)](https://api.reuse.software/info/github.com/DLR-KI/pycasx)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13815668.svg)](https://doi.org/10.5281/zenodo.13815668)
 
 Implementation of ACAS X<sub>A</sub> and ACAS X<sub>U</sub> with neural networks for FlightGear.
 
