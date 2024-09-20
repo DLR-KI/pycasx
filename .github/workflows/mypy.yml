@@ -31,4 +31,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .[tests]
     - name: Static typechecking with mypy
-      uses: tsuyoshicho/action-mypy@v4
+      uses: tsuyoshicho/action-mypy@v5
