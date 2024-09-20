@@ -115,8 +115,8 @@ def create_scenario(cfg: ScenarioConfig) -> None:
             + "<https://mobisoftinfotech.com/tools/plot-multiple-points-on-map/>\n"
         )
         info_cfg += (
-            f'{convert(cfg.lat,"deg")},'
-            f'{convert(cfg.lon,"deg")},'
+            f'{convert(cfg.lat, "deg")},'
+            f'{convert(cfg.lon, "deg")},'
             'red,marker,"Ownship Start"\n'
         )
         cpa = calculate_cpa(cfg)

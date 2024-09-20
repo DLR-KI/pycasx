@@ -26,13 +26,13 @@ def create_fgfs_config(cfg: ScenarioConfig) -> str:
 #
 # {SPDX_LICENSE_IDENTIFIER}
 --aircraft={cfg.aircraft}
---lat={convert(cfg.lat,"deg")}
---lon={convert(cfg.lon,"deg")}
---altitude={convert(cfg.altitude,"ft")}
---heading={convert(cfg.heading,"deg")}
---vc={convert(cfg.vc,"kt")}
---roll={convert(cfg.roll,"deg")}
---pitch={convert(cfg.pitch,"deg")}
+--lat={convert(cfg.lat, "deg")}
+--lon={convert(cfg.lon, "deg")}
+--altitude={convert(cfg.altitude, "ft")}
+--heading={convert(cfg.heading, "deg")}
+--vc={convert(cfg.vc, "kt")}
+--roll={convert(cfg.roll, "deg")}
+--pitch={convert(cfg.pitch, "deg")}
 --timeofday={cfg.timeofday}
 --wind={cfg.wind}
 """
