@@ -9,7 +9,7 @@ ci:
 # <https://github.com/pre-commit/pre-commit-hooks>
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v5.0.0
   hooks:
   - id: check-ast
   - id: check-builtin-literals
@@ -30,7 +30,7 @@ repos:
   - id: reuse
     name: Check license headers (REUSE)
 - repo: https://github.com/FHPythonUtils/LicenseCheck
-  rev: '2024.2'
+  rev: '2024.3'
   hooks:
   - id: licensecheck
     language: python
@@ -42,7 +42,7 @@ repos:
   - id: validate-cff
     name: Validate CITATION.cff file
 - repo: https://github.com/psf/black
-  rev: 24.8.0
+  rev: 24.10.0
   hooks:
   - id: black
     name: Formatting Python code (black)
@@ -66,7 +66,7 @@ repos:
     name: Fixing common spelling mistakes
     args: [--write-changes, -L, assertIn]
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.29.2
+  rev: 0.29.4
   hooks:
   - id: check-github-workflows
     name: Check GitHub Workflow configuration
@@ -81,7 +81,7 @@ repos:
   - id: docformatter
     name: Fixing docstring formatting
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.41.0
+  rev: v0.42.0
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
@@ -92,7 +92,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.16.0
+  rev: v3.18.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
@@ -112,8 +112,8 @@ repos:
     - flake8-pyproject
     - pep8-naming
     - pydoclint
-- repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.6.6
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.7.0
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
@@ -126,7 +126,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.11.2
+  rev: v1.12.1
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
