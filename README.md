@@ -4,11 +4,16 @@ SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/DLR-KI/pycasx/main/docs/_static/pyCASX_logo.svg" alt="pyCASX Logo" width="300">
+</h1><br>
+
 # `pyCASX` &ndash; A Python implementation of ACAS X<sub>A</sub> and ACAS X<sub>U</sub> for Flightgear
 
 [![The latest version of pycasx can be found on PyPI.](https://img.shields.io/pypi/v/pycasx.svg)](https://pypi.python.org/pypi/pycasx)
 [![Information on what versions of Python pycasx supports can be found on PyPI.](https://img.shields.io/pypi/pyversions/pycasx.svg)](https://pypi.python.org/pypi/pycasx)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/DLR-KI/pycasx/main.svg)](https://results.pre-commit.ci/latest/github/DLR-KI/pycasx/main)
+[![Python tests (pytest)](https://github.com/DLR-KI/pycasx/actions/workflows/pytest.yml/badge.svg)](https://github.com/DLR-KI/pycasx/actions/workflows/pytest.yml)
 [![Docs status](https://readthedocs.org/projects/pycasx/badge/)](https://pycasx.readthedocs.io/)
 [![REUSE status](https://api.reuse.software/badge/github.com/DLR-KI/pycasx)](https://api.reuse.software/info/github.com/DLR-KI/pycasx)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13815668.svg)](https://doi.org/10.5281/zenodo.13815668)
