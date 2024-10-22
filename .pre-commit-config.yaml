@@ -29,13 +29,15 @@ repos:
   hooks:
   - id: reuse
     name: Check license headers (REUSE)
-- repo: https://github.com/FHPythonUtils/LicenseCheck
-  rev: '2024.2'  # Do not update, breaks license check in pre-commit for dependencies
-  hooks:
-  - id: licensecheck
-    language: python
-    name: Check licenses of Python dependencies
-    args: [--using, PEP631, --skip-dependencies, torch]
+# Deactivated as the pre-commit.ci service appears not to have access to the internet.
+# Reactivate once switched to GitHub Actions.
+# - repo: https://github.com/FHPythonUtils/LicenseCheck
+#   rev: '2024.2'  # Do not update, breaks license check in pre-commit for dependencies
+#   hooks:
+#   - id: licensecheck
+#     language: python
+#     name: Check licenses of Python dependencies
+#     args: [--using, PEP631, --skip-dependencies, torch]
 - repo: https://github.com/citation-file-format/cffconvert
   rev: b6045d78aac9e02b039703b030588d54d53262ac
   hooks:
