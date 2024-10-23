@@ -54,6 +54,9 @@ jobs:
         name: merged-coverage
 
   coverage:
+    permissions:
+      contents: read
+      pull-requests: write
     needs: merge
     runs-on: ubuntu-latest
     env:
