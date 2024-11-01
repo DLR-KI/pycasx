@@ -50,7 +50,7 @@ dependencies = [
   "scipy==1.10.1",
   "torch==2.1.0",
   "tqdm==4.66.2",
-  "rich==13.7.1"
+  "rich==13.9.3"
 ]
 description = "A Python implementation of ACAS XA and ACAS XU for Flightgear."
 dynamic = ["version"]
