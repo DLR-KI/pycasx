@@ -40,7 +40,7 @@ dependencies = [
   "loguru==0.7.2",
   "lxml==5.1.0",
   "numpy==1.24.4",
-  "onnx==1.14.1",
+  "onnx==1.17.0",
   "onnx2torch==1.5.12",
   "onnxruntime==1.16.1",
   "pillow==10.1.0",
