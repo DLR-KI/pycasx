@@ -41,7 +41,7 @@ dependencies = [
   "lxml==5.1.0",
   "numpy==1.24.4",
   "onnx==1.14.1",
-  "onnx2torch==1.5.12",
+  "onnx2torch==1.5.15",
   "onnxruntime==1.16.1",
   "pillow==10.1.0",
   "pint==0.21.1",
