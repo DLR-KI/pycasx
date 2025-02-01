@@ -44,7 +44,7 @@ dependencies = [
   "onnx2torch==1.5.15",
   "onnxruntime==1.16.1",
   "pillow==10.1.0",
-  "pint==0.21.1",
+  "pint==0.24.4",
   "pyproj==3.5.0",
   "libtmux==0.31.0.post0",
   "scipy==1.10.1",
