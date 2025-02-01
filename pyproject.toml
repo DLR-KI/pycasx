@@ -46,7 +46,7 @@ dependencies = [
   "pillow==10.1.0",
   "pint==0.21.1",
   "pyproj==3.5.0",
-  "libtmux==0.31.0.post0",
+  "libtmux==0.40.1",
   "scipy==1.10.1",
   "torch==2.1.0",
   "tqdm==4.67.1",
