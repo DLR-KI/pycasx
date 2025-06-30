@@ -25,7 +25,7 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/fsfe/reuse-tool
-  rev: v4.0.3
+  rev: v5.0.2
   hooks:
   - id: reuse
     name: Check license headers (REUSE)
@@ -44,12 +44,12 @@ repos:
   - id: validate-cff
     name: Validate CITATION.cff file
 - repo: https://github.com/psf/black
-  rev: 24.10.0
+  rev: 25.1.0
   hooks:
   - id: black
     name: Formatting Python code (black)
 - repo: https://github.com/pycqa/isort
-  rev: 5.13.2
+  rev: 6.0.1
   hooks:
   - id: isort
     args: [--profile, black]
@@ -62,28 +62,28 @@ repos:
     args: [--github]
     exclude: CODE_OF_CONDUCT.md
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.3.0
+  rev: v2.4.1
   hooks:
   - id: codespell
     name: Fixing common spelling mistakes
     args: [--write-changes, -L, assertIn]
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.29.4
+  rev: 0.33.1
   hooks:
   - id: check-github-workflows
     name: Check GitHub Workflow configuration
 - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-  rev: 3.0.3
+  rev: 3.2.1
   hooks:
   - id: editorconfig-checker
     exclude: docs/guide/api.rst
 - repo: https://github.com/PyCQA/docformatter
-  rev: eb1df347edd128b30cd3368dddc3aa65edcfac38
+  rev: v1.7.7
   hooks:
   - id: docformatter
     name: Fixing docstring formatting
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.42.0
+  rev: v0.45.0
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
@@ -94,13 +94,13 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.19.0
+  rev: v3.20.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
     args: [--py38-plus]
 - repo: https://github.com/PyCQA/flake8
-  rev: 7.1.1
+  rev: 7.3.0
   hooks:
   - id: flake8
     name: Linting Python code (flake8)
@@ -114,8 +114,8 @@ repos:
     - flake8-pyproject
     - pep8-naming
     - pydoclint
-- repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.7.0
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.12.0
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
@@ -128,7 +128,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.12.1
+  rev: v1.16.1
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
