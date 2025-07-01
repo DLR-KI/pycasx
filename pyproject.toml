@@ -67,7 +67,7 @@ dev = [
 ]
 docs = [
   "sphinx==8.2.1",
-  "sphinx-autodoc-typehints==1.25.2",
+  "sphinx-autodoc-typehints==2.3.0",
   "sphinx-rtd-theme==3.0.2",
   "sphinx-autoapi==3.0.0"
 ]
