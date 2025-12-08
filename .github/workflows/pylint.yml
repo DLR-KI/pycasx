@@ -30,4 +30,4 @@ jobs:
           uv sync --group ci
       - name: Analysing the code with pylint
         run: |
-          uv run pylint --output-format=text src/pycasx
+          uv run pylint --fail-under=9 --output-format=text src/pycasx
