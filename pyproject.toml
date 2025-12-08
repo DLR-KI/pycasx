@@ -138,6 +138,10 @@ min-similarity-lines = 10
 "pycasx/tools/NNet/" = "C0116"
 "pycasx/tools/NNet/nnet.py" = "C0103"
 
+[tool.pytest.ini_options]
+addopts = "--cov=src/pycasx/ --cov-report=term-missing --cov-report=xml:coverage.xml --junitxml=report.xml"
+testpaths = ["tests"]
+
 [tool.ruff]
 target-version = "py310"
 
