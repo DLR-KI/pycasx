@@ -33,4 +33,4 @@ jobs:
           uv sync --group ci
       - name: Lint with flake8
         run: |
-          flake8 pycasx
+          uv run flake8 src/pycasx
