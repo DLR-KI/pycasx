@@ -33,3 +33,5 @@ jobs:
           uv sync --group ci
       - name: Static typechecking with mypy
         uses: tsuyoshicho/action-mypy@v5
+        with:
+          execute_command: "uv run mypy"
