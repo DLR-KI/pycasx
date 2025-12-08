@@ -3,11 +3,35 @@
 # SPDX-License-Identifier: MIT
 
 [build-system]
-build-backend = "setuptools.build_meta"
-requires = [
-  "setuptools >= 62.3.0",
-  "wheel"
+build-backend = "uv_build"
+requires = ["uv_build>=0.8.11"]
+
+[dependency-groups]
+ci = [
+  "flake8-docstrings-complete",
+  "flake8-docstrings",
+  "flake8-pyproject",
+  "flake8",
+  "mypy",
+  "parameterized",
+  "pylint-per-file-ignores",
+  "pylint"
 ]
+dev = [
+  "lxml-stubs",
+  "types-requests",
+  "prek>=0.2.20",
+  "reuse>=6.2.0",
+  "ruff>=0.13.3",
+  "ty>=0.0.1a29"
+]
+docs = [
+  "sphinx>=8.0.0",
+  "sphinx-autodoc-typehints",
+  "sphinx-rtd-theme",
+  "sphinx-autoapi"
+]
+tests = ["coverage", "pytest-cov", "pytest>=7.4.0", "shapely"]
 
 [project]
 authors = [{name = "Johann Christensen", email = "johann.christensen@dlr.de"}]
@@ -24,80 +48,42 @@ classifiers = [
   "Operating System :: Microsoft :: Windows :: Windows 11",
   "Operating System :: POSIX :: Linux",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
   "Topic :: Games/Entertainment :: Simulation",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Typing :: Typed"
 ]
 dependencies = [
-  "flightgear-python==2.0.1",
-  "fastapi[all]==0.115.12",
-  "hydra-core==1.3.2",
-  "loguru==0.7.3",
-  "lxml==5.1.0",
-  "numpy==1.24.4",
-  "onnx==1.14.1",
-  "onnx2torch==1.5.15",
-  "onnxruntime==1.16.1",
-  "pillow==10.1.0",
-  "pint==0.21.1",
-  "pyproj==3.5.0",
-  "libtmux==0.31.0.post0",
-  "scipy==1.10.1",
-  "torch==2.1.0",
-  "tqdm==4.67.1",
-  "rich==13.9.4"
+  "fastapi[all]>=0.124.0",
+  "flightgear-python>=2.0.3",
+  "hydra-core>=1.3.2",
+  "libtmux>=0.52.1",
+  "loguru>=0.7.3",
+  "lxml>=6.0.2",
+  "numpy>=2.2.6",
+  "onnx>=1.20.0",
+  "onnx2torch>=1.5.15",
+  "onnxruntime>=1.23.2",
+  "pillow>=12.0.0",
+  "pint>=0.24.4",
+  "pyproj>=3.7.1",
+  "rich>=14.2.0",
+  "scipy>=1.15.3",
+  "torch>=2.9.1",
+  "tqdm>=4.67.1"
 ]
 description = "A Python implementation of ACAS XA and ACAS XU for Flightgear."
-dynamic = ["version"]
-license = {file = "LICENSES/MIT.txt"}
+license = "MIT"
+license-files = ["LICENSES/*"]
 name = "pycasx"
-requires-python = ">=3.8,<3.12"
-
-[project.optional-dependencies]
-all = ["pycasx[dev,docs,tests]"]
-dev = [
-  "lxml-stubs",
-  "pre-commit>=3.5.0",
-  "reuse>=4.0.0"
-]
-docs = [
-  "sphinx==8.2.1",
-  "sphinx-autodoc-typehints==1.25.2",
-  "sphinx-rtd-theme==3.0.2",
-  "sphinx-autoapi==3.0.0"
-]
-full = ["pycasx[all]"]
-tests = [
-  "coverage",
-  "flake8-bugbear",
-  "flake8-builtins",
-  "flake8-comprehensions",
-  "flake8-docstrings-complete",
-  "flake8-docstrings",
-  "flake8-pyproject",
-  "flake8-simplify",
-  "flake8",
-  "mypy",
-  "parameterized",
-  "pep8-naming",
-  "pycodestyle",
-  "pydoclint",
-  "pylint-per-file-ignores",
-  "pylint",
-  "pytest-cov",
-  "pytest>=7.4.0",
-  "shapely",
-  "types-requests"
-]
-
-[project.readme]
-content-type = "text/markdown; charset=UTF-8"
-file = "README.md"
+readme = "README.md"
+requires-python = ">=3.10"
+version = "1.0.1"
 
 [project.scripts]
 pycasx = "pycasx.cli.cli:main"
@@ -110,40 +96,28 @@ Tracker = "https://github.com/DLR-KI/pycasx/-/issues"
 
 [tool.flake8]
 check-return-types = true
-# E203: incorrectly triggers on array slices: <https://github.com/PyCQA/pycodestyle/issues/373>
-# SIM300: Yoda conditions might be more reliable but not more readable
-# D107: Google docstring style prevents docstrings in __init__ function
-# D401: Imperative mood is not always detectet correctly
-# DCO010: Google docstring style prevents docstrings in __init__ function <https://github.com/jdkandersson/flake8-docstrings-complete/issues/15>
-extend-ignore = "E203, SIM300, D107, D401, DCO010"
+extend-ignore = ["DCO010", "DCO060"]
 max-complexity = "10"
 max-line-length = "88"
-# pycasx/connectors/protocols.py: Ignore returns not matching for protocol functions
-# pycasx/tools/NNet/**/*.py: Ignore missing docstrings for classes from other sources
-# pycasx/tools/NNet/nnet.py: Ignore camel case names for classes from other sources
-# **/__init__.py: Ignore docstring style for __init__.py files
-# tests/*: Ignore docstring style for tests
 per-file-ignores = [
-  "pycasx/connectors/protocols.py: DCO031",
-  "pycasx/tools/NNet/**/*.py: D",
-  "pycasx/tools/NNet/nnet.py: N806, D",
-  "**/__init__.py: D",
-  "tests/*: D"
+  "src/pycasx/tools/NNet/**/*.py: DCO, DOC",
+  "src/pycasx/tools/NNet/nnet.py: DCO, DOC"
 ]
+select = "DCO, DOC"
 style = "google"
+
+[tool.licensecheck]
+ignore_packages = ["nvidia-*", "ujson"]
+using = "PEP631"
+zero = true
 
 [tool.mypy]
 ignore_missing_imports = true
-plugins = ["numpy.typing.mypy_plugin"]
-python_version = "3.8"
+python_version = "3.10"
 
 [tool.pylint.MASTER]
-extension-pkg-whitelist = [
-  "lxml"
-]
-load-plugins = [
-  "pylint_per_file_ignores"
-]
+extension-pkg-whitelist = ["lxml"]
+load-plugins = ["pylint_per_file_ignores"]
 
 [tool.pylint.'MESSAGES CONTROL']
 max-line-length = "88"
@@ -164,25 +138,95 @@ min-similarity-lines = 10
 "pycasx/tools/NNet/" = "C0116"
 "pycasx/tools/NNet/nnet.py" = "C0103"
 
-[tool.setuptools]
-include-package-data = true
-license-files = ["LICENSES/*.txt"]
-platforms = [
-  "macosx_13_x86_64",
-  "manylinux2014_x86_64",
-  "win_amd64"
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.format]
+preview = true
+
+[tool.ruff.lint]
+extend-fixable = ["ALL"]
+extend-select = [
+  "A",
+  "ANN",
+  "ARG",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "D",
+  "DOC",
+  "DTZ",
+  "E",
+  "ERA",
+  "EXE",
+  "F",
+  "FAST",
+  "FLY",
+  "FURB",
+  "I",
+  "INP",
+  "ISC",
+  "LOG",
+  "N",
+  "NPY",
+  "PERF",
+  "PIE",
+  "PL",
+  "PLE",
+  "PLR",
+  "PLW",
+  "PT",
+  "PTH",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "S",
+  "SIM",
+  "SLF",
+  # "T20",
+  "TC",
+  "UP",
+  "W"
 ]
-zip-safe = false
+# E203: incorrectly triggers on array slices: <https://github.com/PyCQA/pycodestyle/issues/373>
+# SIM300: Yoda conditions might be more reliable but not more readable
+# D105: Docstrings in standard magic methods are superfluous
+# D107: Google docstring style prevents docstrings in __init__ function
+# S311: We don't need perfect cryptography in this project
+# ANN401: Allow Any types
+# S404, S603: Allow use of subprocess module without additional security measures
+ignore = ["E203", "SIM300", "D105", "D107", "S311", "ANN401", "S404", "S603"]
+preview = true
 
-[tool.setuptools.dynamic]
-version = {file = ["VERSION"]}
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
 
-[tool.setuptools.package-data]
-"pycasx" = [
-  "assets/**",
-  "py.typed",
-  "conf/**/*.yaml"
+[tool.ruff.lint.per-file-ignores]
+"docs/conf.py" = ["INP001"]
+"src/pycasx/cli/cli.py" = ["PLC0415"]
+"src/pycasx/tools/NNet/**/*.py" = ["ALL"]
+"src/pycasx/tools/NNet/nnet.py" = ["ALL"]
+"tests/*" = [
+  "S101",
+  "ANN",
+  "D",
+  "DOC",
+  "E501",
+  "NPY002",
+  "PT",
+  "PLR",
+  "SLF001",
+  "S307",
+  "W505"
 ]
 
-[tool.setuptools.packages]
-find = {namespaces = false}
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 72
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.uv]
+default-groups = "all"

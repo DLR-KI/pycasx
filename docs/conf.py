@@ -3,23 +3,25 @@
 # SPDX-License-Identifier: MIT
 """Configuration file for the Sphinx documentation builder.
 
-For the full list of built-in configuration values, see the documentation:
+For the full list of built-in configuration values, see the
+documentation:
 https://www.sphinx-doc.org/en/master/usage/configuration.html
 
--- Project information -----------------------------------------------------
+-- Project information -------------------------------------------------
 https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 """
-import os
+
+import pathlib
 import sys
 
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, str(pathlib.Path("..").resolve()))
 
 project = "pyCASX"
 copyright = "2024, German Aerospace Center (DLR) (https://dlr.de)"  # noqa: A001
 author = "Johann Christensen"
 release = "0.0.6"
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration ---------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
@@ -59,7 +61,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
-# -- Options for HTML output -------------------------------------------------
+# -- Options for HTML output -------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "sphinx_rtd_theme"

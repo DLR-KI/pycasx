@@ -2,14 +2,15 @@
 #
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
 
 import unittest
+
+import pytest
 
 from pycasx.acas.acasx import ACASX
 
 
 class TestCAS(unittest.TestCase):
     def test_wrong_backend(self) -> None:
-        with self.assertRaises(NotImplementedError):
+        with pytest.raises(NotImplementedError):
             ACASX(backend="unsupported_backend")  # type: ignore

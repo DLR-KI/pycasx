@@ -7,14 +7,4 @@ version = 1
 [[annotations]]
 SPDX-FileCopyrightText = "German Aerospace Center (DLR) <https://dlr.de>"
 SPDX-License-Identifier = "MIT"
-path = "VERSION"
-
-[[annotations]]
-SPDX-FileCopyrightText = "German Aerospace Center (DLR) <https://dlr.de>"
-SPDX-License-Identifier = "MIT"
-path = "pycasx/py.typed"
-
-[[annotations]]
-SPDX-FileCopyrightText = "German Aerospace Center (DLR) <https://dlr.de>"
-SPDX-License-Identifier = "MIT"
-path = ".vscode/*.json"
+path = ["uv.lock", "src/pycasx/py.typed", ".vscode/*.json"]

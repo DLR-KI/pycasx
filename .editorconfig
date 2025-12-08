@@ -50,3 +50,7 @@ insert_final_newline = unset
 trim_trailing_whitespace = unset
 indent_style = unset
 indent_size = unset
+
+# Ingore for rst files
+[docs/guide/api.rst]
+indent_size = unset

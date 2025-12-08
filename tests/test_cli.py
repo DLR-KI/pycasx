@@ -7,6 +7,8 @@ import sys
 import unittest
 import unittest.mock
 
+import pytest
+
 from pycasx import __version__ as pycasx_version
 from pycasx.cli.cli import main as cli_main
 
@@ -14,7 +16,7 @@ from pycasx.cli.cli import main as cli_main
 class TestCLI(unittest.TestCase):
     def test_wrong_script(self):
         sys.argv = ["pycasx", "wrong_script"]
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             cli_main()
 
     def test_warns_with_old_script_name(self):
@@ -35,7 +37,7 @@ class TestCLI(unittest.TestCase):
         sys.argv = ["pycasx", "--help"]
         cli_main()
         help_response = stdout.getvalue()
-        self.assertEqual(default_response, help_response)
+        assert default_response == help_response
 
     @unittest.mock.patch("sys.stdout", new_callable=io.StringIO)
     def test_version_arg(self, stdout):
@@ -43,7 +45,7 @@ class TestCLI(unittest.TestCase):
         for arg in version_args:
             sys.argv = ["pycasx", arg]
             cli_main()
-            self.assertEqual(stdout.getvalue(), f"{pycasx_version}\n")
+            assert stdout.getvalue() == f"{pycasx_version}\n"
             stdout.seek(0)  # Reset the StringIO object
 
     @unittest.mock.patch("sys.stdout", new_callable=io.StringIO)
@@ -54,17 +56,17 @@ class TestCLI(unittest.TestCase):
             cli_main()
             help_text = stdout.getvalue()
             # Check that the help text is not empty
-            self.assertTrue(len(help_text) > 10)
+            assert len(help_text) > 10
             # Check that the help text contains the CLI name
-            self.assertIn("pycasx", help_text)
+            assert "pycasx" in help_text
             # Check that the help text contains the word "Usage"
-            self.assertIn("Usage", help_text)
+            assert "Usage" in help_text
             # Check that the help text contains the word "Commands"
-            self.assertIn("Commands", help_text)
+            assert "Commands" in help_text
             # Check that the help text contains the registered commands
             commands = ["acasx", "launch", "onnx", "copy", "scenarios"]
             for command in commands:
-                self.assertIn(command, help_text)
+                assert command in help_text
             # Check that the help text contains the word "Hydra"
-            self.assertIn("Hydra", help_text)
+            assert "Hydra" in help_text
             stdout.seek(0)  # Reset the StringIO object

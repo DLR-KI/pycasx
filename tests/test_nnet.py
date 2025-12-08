@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
 
 import unittest
 from pathlib import Path
@@ -12,8 +11,8 @@ import numpy.typing as npt
 import onnx
 import onnxruntime as ort
 import torch as th
-from onnx2torch import convert
 from onnx.onnx_ml_pb2 import ModelProto
+from onnx2torch import convert
 from torch.fx import GraphModule
 
 from pycasx.cli.convert_to_onnx import HCAS_FOLDER, VCAS_FOLDER, convert_to_onnx
@@ -324,16 +323,15 @@ class TestNNetConversions(unittest.TestCase):
         # The most important test is, that the argmax is the same.
         np.testing.assert_allclose(nnet_output, onnx_output, rtol=1e-3, atol=1e-3)
         np.testing.assert_allclose(nnet_output, torch_output, rtol=1e-3, atol=1e-3)
-        self.assertEqual(np.argmax(nnet_output), np.argmax(onnx_output))
-        self.assertEqual(np.argmax(nnet_output), np.argmax(torch_output))
+        assert np.argmax(nnet_output) == np.argmax(onnx_output)
+        assert np.argmax(nnet_output) == np.argmax(torch_output)
 
     def test_conversion(self) -> None:
         # Check that the ONNX files were created
         for network in self.networks:
-            self.assertTrue(
-                (HCAS_FOLDER / f"{network}.onnx").exists()
-                or (VCAS_FOLDER / f"{network}.onnx").exists()
-            )
+            assert (HCAS_FOLDER / f"{network}.onnx").exists() or (
+                VCAS_FOLDER / f"{network}.onnx"
+            ).exists()
 
     def test_same_output_predefined_sequence(self) -> None:
         # Check that the ONNX files have the same output as the NNet files

@@ -1,12 +1,12 @@
 # SPDX-FileCopyrightText: 2024 German Aerospace Center (DLR) <https://dlr.de>
 #
 # SPDX-License-Identifier: MIT
-
-from __future__ import annotations
+# REUSE-IgnoreStart
 
 import unittest
 import unittest.mock
 import uuid
+from itertools import starmap
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -86,12 +86,10 @@ def line_intersection(
 
     # Convert the lines to cartesian coordinates
     line1_cartesian = LineString(
-        transformer_to_cartesian.transform(*point)
-        for point in [(lon01, lat01), (lon02, lat02)]
+        starmap(transformer_to_cartesian.transform, [(lon01, lat01), (lon02, lat02)])
     )
     line2_cartesian = LineString(
-        transformer_to_cartesian.transform(*point)
-        for point in [(lon11, lat11), (lon12, lat12)]
+        starmap(transformer_to_cartesian.transform, [(lon11, lat11), (lon12, lat12)])
     )
 
     # Calculate the intersection of the lines
@@ -107,11 +105,7 @@ def line_intersection(
     )
 
     # Convert the intersection point to geographic coordinates
-    intersection_geographic = transformer_to_geographic.transform(
-        *intersection.coords[0]
-    )
-
-    return intersection_geographic
+    return transformer_to_geographic.transform(*intersection.coords[0])
 
 
 class TestScenarioGeneration(unittest.TestCase):
@@ -211,29 +205,29 @@ class TestScenarioGeneration(unittest.TestCase):
 
     def test_calculate_cpa_return_geographic_coordinates(self):
         result = calculate_cpa(self.cfg)
-        self.assertIsInstance(result, GeographicCoordinates)
+        assert isinstance(result, GeographicCoordinates)
 
     def test_calculate_cpa_return_tuple_lat_lon(self):
         result = calculate_cpa(self.cfg, return_tuple=True, order="lat,lon")
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(len(result), 2)
+        assert isinstance(result, tuple)
+        assert len(result) == 2
         for value in result:
-            self.assertIsInstance(value, float)
+            assert isinstance(value, float)
 
     def test_calculate_cpa_return_tuple_lon_lat(self):
         result = calculate_cpa(self.cfg, return_tuple=True, order="lon,lat")
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(len(result), 2)
+        assert isinstance(result, tuple)
+        assert len(result) == 2
         for value in result:
-            self.assertIsInstance(value, float)
+            assert isinstance(value, float)
 
     def test_calculate_cpa_return_tuple_default_lat_lon(self):
         result = calculate_cpa(self.cfg)
         result_tuple_lat_lon = calculate_cpa(self.cfg, return_tuple=True)
-        self.assertEqual(result.lat, result_tuple_lat_lon[0])
-        self.assertNotEqual(result.lon, result_tuple_lat_lon[0])
-        self.assertEqual(result.lon, result_tuple_lat_lon[1])
-        self.assertNotEqual(result.lat, result_tuple_lat_lon[1])
+        assert result.lat == result_tuple_lat_lon[0]
+        assert result.lon != result_tuple_lat_lon[0]
+        assert result.lon == result_tuple_lat_lon[1]
+        assert result.lat != result_tuple_lat_lon[1]
 
     def test_calculate_cpa_return_values_equal(self):
         result = calculate_cpa(self.cfg)
@@ -243,51 +237,49 @@ class TestScenarioGeneration(unittest.TestCase):
         result_tuple_lon_lat = calculate_cpa(
             self.cfg, return_tuple=True, order="lon,lat"
         )
-        self.assertEqual(result.lat, result_tuple_lat_lon[0])
-        self.assertEqual(result.lon, result_tuple_lat_lon[1])
-        self.assertEqual(result.lat, result_tuple_lon_lat[1])
-        self.assertEqual(result.lon, result_tuple_lon_lat[0])
+        assert result.lat == result_tuple_lat_lon[0]
+        assert result.lon == result_tuple_lat_lon[1]
+        assert result.lat == result_tuple_lon_lat[1]
+        assert result.lon == result_tuple_lon_lat[0]
 
     def test_create_fgfs_config_license_info(self):
         result = create_fgfs_config(self.cfg)
-        self.assertIn("SPDX-FileCopyrightText:", result)
-        self.assertIn(SPDX_FILE_COPYRIGHT_TEXT, result)
-        self.assertIn("SPDX-License-Identifier:", result)
-        self.assertIn(SPDX_LICENSE_IDENTIFIER, result)
+        assert "SPDX-FileCopyrightText:" in result
+        assert SPDX_FILE_COPYRIGHT_TEXT in result
+        assert "SPDX-License-Identifier:" in result
+        assert SPDX_LICENSE_IDENTIFIER in result
 
     def test_create_fgfs_config_ownship_info(self):
         result = create_fgfs_config(self.cfg)
-        self.assertIn(f"--aircraft={self.cfg.aircraft}", result)
-        self.assertIn(f"--lat={self.cfg.lat}", result)
-        self.assertIn(f"--lon={self.cfg.lon}", result)
-        self.assertIn(f"--altitude={self.cfg.altitude}", result)
-        self.assertIn(f"--heading={self.cfg.heading}", result)
-        self.assertIn(f"--vc={self.cfg.vc}", result)
-        self.assertIn(f"--roll={self.cfg.roll}", result)
-        self.assertIn(f"--pitch={self.cfg.pitch}", result)
+        assert f"--aircraft={self.cfg.aircraft}" in result
+        assert f"--lat={self.cfg.lat}" in result
+        assert f"--lon={self.cfg.lon}" in result
+        assert f"--altitude={self.cfg.altitude}" in result
+        assert f"--heading={self.cfg.heading}" in result
+        assert f"--vc={self.cfg.vc}" in result
+        assert f"--roll={self.cfg.roll}" in result
+        assert f"--pitch={self.cfg.pitch}" in result
 
     def test_create_fgfs_config_fgfs_info(self):
         result = create_fgfs_config(self.cfg)
-        self.assertIn(f"--timeofday={self.cfg.timeofday}", result)
-        self.assertIn(f"--wind={self.cfg.wind}", result)
-        self.assertIn(f"--httpd={self.cfg.httpd}", result)
+        assert f"--timeofday={self.cfg.timeofday}" in result
+        assert f"--wind={self.cfg.wind}" in result
+        assert f"--httpd={self.cfg.httpd}" in result
 
     def test_create_fgfs_config_options(self):
         result = create_fgfs_config(self.cfg)
         for config_option in self.cfg.config:
-            self.assertIn(f"--config={config_option}", result)
+            assert f"--config={config_option}" in result
 
     def test_create_fgfs_config_props(self):
         result = create_fgfs_config(self.cfg)
         for prop_key, prop_value in self.cfg.prop.items():
-            self.assertIn(f"--prop:{prop_key}={prop_value}", result)
+            assert f"--prop:{prop_key}={prop_value}" in result
 
-    @parameterized.expand(
-        (
-            (None,),
-            ((1234, 5678),),
-        )
-    )
+    @parameterized.expand((
+        (None,),
+        ((1234, 5678),),
+    ))
     def test_create_fgfs_config_fgfs_optional_telnet(
         self,
         telnet_tuple: tuple[int, int] | None,
@@ -299,9 +291,9 @@ class TestScenarioGeneration(unittest.TestCase):
             self.cfg.telnet = None
         result = create_fgfs_config(self.cfg)
         if telnet_tuple is not None:
-            self.assertIn(f"--telnet=,,{telnet_tuple[1]},,{telnet_tuple[0]},", result)
+            assert f"--telnet=,,{telnet_tuple[1]},,{telnet_tuple[0]}," in result
         else:
-            self.assertNotIn("--telnet", result)
+            assert "--telnet" not in result
 
     @parameterized.expand(((True,), (False,)))
     def test_create_fgfs_config_headless(self, headless: bool):
@@ -309,9 +301,9 @@ class TestScenarioGeneration(unittest.TestCase):
         result = create_fgfs_config(self.cfg)
 
         if self.cfg.headless:
-            self.assertIn(HEADLESS_OPTIONS, result)
+            assert HEADLESS_OPTIONS in result
         else:
-            self.assertNotIn(HEADLESS_OPTIONS, result)
+            assert HEADLESS_OPTIONS not in result
 
     @parameterized.expand(((True,), (False,)))
     def test_create_fgfs_config_disable_sound(self, disable_sound: bool):
@@ -320,126 +312,122 @@ class TestScenarioGeneration(unittest.TestCase):
         result = create_fgfs_config(self.cfg)
 
         if self.cfg.disable_sound:
-            self.assertNotIn("--enable-sound", result)
-            self.assertIn("--disable-sound", result)
+            assert "--enable-sound" not in result
+            assert "--disable-sound" in result
         else:
-            self.assertIn("--enable-sound", result)
-            self.assertNotIn("--disable-sound", result)
+            assert "--enable-sound" in result
+            assert "--disable-sound" not in result
 
     def test_create_flightplan_xml_xml_header(self):
         result = create_flightplan_xml(self.waypoints)
-        self.assertIn("<?xml version='1.0' encoding='UTF-8'?>", result)
+        assert "<?xml version='1.0' encoding='UTF-8'?>" in result
 
     def test_create_flightplan_xml_license_info(self):
         result = create_flightplan_xml(self.waypoints)
-        self.assertIn("SPDX-FileCopyrightText:", result)
-        self.assertIn(SPDX_FILE_COPYRIGHT_TEXT, result)
-        self.assertIn("SPDX-License-Identifier:", result)
-        self.assertIn(SPDX_LICENSE_IDENTIFIER, result)
+        assert "SPDX-FileCopyrightText:" in result
+        assert SPDX_FILE_COPYRIGHT_TEXT in result
+        assert "SPDX-License-Identifier:" in result
+        assert SPDX_LICENSE_IDENTIFIER in result
 
     def test_create_flightplan_xml_is_valid(self):
         result = create_flightplan_xml(self.waypoints)
 
         # Check that the root element is "PropertyList"
         root = etree.fromstring(str.encode(result))
-        self.assertEqual(root.tag, "PropertyList")
+        assert root.tag == "PropertyList"
 
         # Check that the first child of the root is "flightplan"
         flightplan = root.find("flightplan")
-        self.assertIsNotNone(flightplan)
+        assert flightplan is not None
 
         # Check that the flightplan contains the correct number of waypoints
         waypoints = flightplan.findall("wpt")
-        self.assertEqual(len(waypoints), len(self.waypoints))
+        assert len(waypoints) == len(self.waypoints)
 
         # Check that each waypoint has the correct attributes
         for i, waypoint in enumerate(waypoints):
-            self.assertIsNotNone(waypoint)
-            self.assertEqual(waypoint.find("name").text, self.waypoints[i].name)
-            self.assertEqual(float(waypoint.find("lat").text), self.waypoints[i].lat)
-            self.assertEqual(float(waypoint.find("lon").text), self.waypoints[i].lon)
-            self.assertEqual(float(waypoint.find("alt").text), self.waypoints[i].alt)
-            self.assertEqual(float(waypoint.find("ktas").text), self.waypoints[i].ktas)
-            self.assertEqual(
-                waypoint.find("on-ground").text.lower(),
-                str(self.waypoints[i].on_ground).lower(),
+            assert waypoint is not None
+            assert waypoint.find("name").text == self.waypoints[i].name
+            assert float(waypoint.find("lat").text) == self.waypoints[i].lat
+            assert float(waypoint.find("lon").text) == self.waypoints[i].lon
+            assert float(waypoint.find("alt").text) == self.waypoints[i].alt
+            assert float(waypoint.find("ktas").text) == self.waypoints[i].ktas
+            assert (
+                waypoint.find("on-ground").text.lower()
+                == str(self.waypoints[i].on_ground).lower()
             )
-            self.assertEqual(
-                waypoint.find("gear-down").text.lower(),
-                str(self.waypoints[i].gear_down).lower(),
+            assert (
+                waypoint.find("gear-down").text.lower()
+                == str(self.waypoints[i].gear_down).lower()
             )
-            self.assertEqual(
-                waypoint.find("flaps-down").text.lower(),
-                str(self.waypoints[i].flaps_down).lower(),
+            assert (
+                waypoint.find("flaps-down").text.lower()
+                == str(self.waypoints[i].flaps_down).lower()
             )
 
     def test_create_ai_scenario_xml_header(self):
         result = create_ai_scenario_xml(self.cfg, self._uuid, self.flightplans)
-        self.assertIn("<?xml version='1.0' encoding='UTF-8'?>", result)
+        assert "<?xml version='1.0' encoding='UTF-8'?>" in result
 
     def test_create_ai_scenario_license_info(self):
         result = create_ai_scenario_xml(self.cfg, self._uuid, self.flightplans)
-        self.assertIn("SPDX-FileCopyrightText:", result)
-        self.assertIn(SPDX_FILE_COPYRIGHT_TEXT, result)
-        self.assertIn("SPDX-License-Identifier:", result)
-        self.assertIn(SPDX_LICENSE_IDENTIFIER, result)
+        assert "SPDX-FileCopyrightText:" in result
+        assert SPDX_FILE_COPYRIGHT_TEXT in result
+        assert "SPDX-License-Identifier:" in result
+        assert SPDX_LICENSE_IDENTIFIER in result
 
     def test_create_ai_scenario_is_valid(self):
         result = create_ai_scenario_xml(self.cfg, self._uuid, self.flightplans)
         root = etree.fromstring(str.encode(result))
 
         # Check that the root element is "PropertyList"
-        self.assertEqual(root.tag, "PropertyList")
+        assert root.tag == "PropertyList"
 
         # Check that the first child of the root is "scenario"
         scenario = root.find("scenario")
-        self.assertIsNotNone(scenario)
+        assert scenario is not None
 
         # Check that the scenario contains the correct number of entries
         entries = scenario.findall("entry")
-        self.assertEqual(len(entries), len(self.flightplans))
+        assert len(entries) == len(self.flightplans)
 
         # Check that each entry has the correct attributes
         for i, entry in enumerate(entries):
-            self.assertEqual(entry.find("callsign").text, f"INTRUDER_{i+1}")
-            self.assertEqual(entry.find("type").text, self.cfg.intruder.type_)
-            self.assertEqual(entry.find("class").text, self.cfg.intruder.class_)
-            self.assertEqual(entry.find("model").text, self.cfg.intruder.model)
-            self.assertEqual(
-                entry.find("flightplan").text,
-                f"{self.flightplans[i].stem}{self.flightplans[i].suffix}",
+            assert entry.find("callsign").text == f"INTRUDER_{i + 1}"
+            assert entry.find("type").text == self.cfg.intruder.type_
+            assert entry.find("class").text == self.cfg.intruder.class_
+            assert entry.find("model").text == self.cfg.intruder.model
+            assert (
+                entry.find("flightplan").text
+                == f"{self.flightplans[i].stem}{self.flightplans[i].suffix}"
             )
-            self.assertEqual(entry.find("repeat").text, "0")
+            assert entry.find("repeat").text == "0"
 
     def test_generate_colliding_waypoints_returns_waypoints(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertIsInstance(waypoints, list)
-        self.assertTrue(all(isinstance(wp, WayPointConfig) for wp in waypoints))
+        assert isinstance(waypoints, list)
+        assert all(isinstance(wp, WayPointConfig) for wp in waypoints)
 
     def test_generate_colliding_waypoints_returns_two_waypoints(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertEqual(len(waypoints), 2)
+        assert len(waypoints) == 2
 
     def test_generate_colliding_waypoints_correct_names(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertEqual(waypoints[0].name, "START")
-        self.assertEqual(waypoints[1].name, "END")
+        assert waypoints[0].name == "START"
+        assert waypoints[1].name == "END"
 
     def test_generate_colliding_waypoints_correct_ktas(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertTrue(
-            convert(self.cfg.colliding.speed.min_, "kt") <= waypoints[0].ktas
-            and waypoints[0].ktas <= convert(self.cfg.colliding.speed.max_, "kt")
-        )
-        self.assertTrue(
-            convert(self.cfg.colliding.speed.min_, "kt") <= waypoints[1].ktas
-            and waypoints[1].ktas <= convert(self.cfg.colliding.speed.max_, "kt")
-        )
-        self.assertEqual(waypoints[0].ktas, waypoints[1].ktas)
+        assert convert(self.cfg.colliding.speed.min_, "kt") <= waypoints[0].ktas
+        assert waypoints[0].ktas <= convert(self.cfg.colliding.speed.max_, "kt")
+        assert convert(self.cfg.colliding.speed.min_, "kt") <= waypoints[1].ktas
+        assert waypoints[1].ktas <= convert(self.cfg.colliding.speed.max_, "kt")
+        assert waypoints[0].ktas == waypoints[1].ktas
 
     def test_generate_colliding_waypoints_constant_altitude(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertEqual(waypoints[0].alt, waypoints[1].alt)
+        assert waypoints[0].alt == waypoints[1].alt
 
     def test_generate_colliding_waypoints_correct_heading(self):
         waypoints = generate_parallel_waypoints(self.cfg)
@@ -449,34 +437,38 @@ class TestScenarioGeneration(unittest.TestCase):
             waypoints[1].lon,
             waypoints[1].lat,
         )
-        az = az % 360
+        az %= 360
         heading = self.cfg.heading % 360
-        self.assertGreaterEqual(az, heading - self.cfg.parallel.horizontal.spread / 2)
-        self.assertLessEqual(az, heading + self.cfg.parallel.horizontal.spread / 2)
+        assert az >= heading - self.cfg.parallel.horizontal.spread / 2
+        assert az <= heading + self.cfg.parallel.horizontal.spread / 2
 
     def test_generate_colliding_waypoints_altitude_in_range(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertGreaterEqual(
-            waypoints[0].alt, self.cfg.altitude - self.cfg.colliding.altitude.spread / 2
+        assert (
+            waypoints[0].alt
+            >= self.cfg.altitude - self.cfg.colliding.altitude.spread / 2
         )
-        self.assertLessEqual(
-            waypoints[0].alt, self.cfg.altitude + self.cfg.colliding.altitude.spread / 2
+        assert (
+            waypoints[0].alt
+            <= self.cfg.altitude + self.cfg.colliding.altitude.spread / 2
         )
-        self.assertGreaterEqual(
-            waypoints[1].alt, self.cfg.altitude - self.cfg.colliding.altitude.spread / 2
+        assert (
+            waypoints[1].alt
+            >= self.cfg.altitude - self.cfg.colliding.altitude.spread / 2
         )
-        self.assertLessEqual(
-            waypoints[1].alt, self.cfg.altitude + self.cfg.colliding.altitude.spread / 2
+        assert (
+            waypoints[1].alt
+            <= self.cfg.altitude + self.cfg.colliding.altitude.spread / 2
         )
 
     def test_generate_colliding_waypoints_correct_properties(self):
         waypoints = generate_colliding_waypoints(self.cfg)
-        self.assertFalse(waypoints[0].on_ground)
-        self.assertFalse(waypoints[0].gear_down)
-        self.assertFalse(waypoints[0].flaps_down)
-        self.assertFalse(waypoints[1].on_ground)
-        self.assertFalse(waypoints[1].gear_down)
-        self.assertFalse(waypoints[1].flaps_down)
+        assert not waypoints[0].on_ground
+        assert not waypoints[0].gear_down
+        assert not waypoints[0].flaps_down
+        assert not waypoints[1].on_ground
+        assert not waypoints[1].gear_down
+        assert not waypoints[1].flaps_down
 
     def test_generate_colliding_waypoints_waypoints_intersects_ownship_at_cpa(self):
         for _ in range(100):
@@ -505,39 +497,35 @@ class TestScenarioGeneration(unittest.TestCase):
                 intruder_end[0],
                 intruder_end[1],
             )
-            self.assertIsNotNone(intersection)
+            assert intersection is not None
             self.assertAlmostEqual(intersection[0], cpa.lon, places=3)
             self.assertAlmostEqual(intersection[1], cpa.lat, places=3)
 
     def test_generate_parallel_waypoints_returns_waypoints(self):
         waypoints = generate_parallel_waypoints(self.cfg)
-        self.assertIsInstance(waypoints, list)
-        self.assertTrue(all(isinstance(wp, WayPointConfig) for wp in waypoints))
+        assert isinstance(waypoints, list)
+        assert all(isinstance(wp, WayPointConfig) for wp in waypoints)
 
     def test_generate_parallel_waypoints_returns_two_waypoints(self):
         waypoints = generate_parallel_waypoints(self.cfg)
-        self.assertEqual(len(waypoints), 2)
+        assert len(waypoints) == 2
 
     def test_generate_parallel_waypoints_correct_names(self):
         waypoints = generate_parallel_waypoints(self.cfg)
-        self.assertEqual(waypoints[0].name, "START")
-        self.assertEqual(waypoints[1].name, "END")
+        assert waypoints[0].name == "START"
+        assert waypoints[1].name == "END"
 
     def test_generate_parallel_waypoints_correct_ktas(self):
         waypoints = generate_parallel_waypoints(self.cfg)
-        self.assertTrue(
-            convert(self.cfg.parallel.speed.min_, "kt") <= waypoints[0].ktas
-            and waypoints[0].ktas <= convert(self.cfg.parallel.speed.max_, "kt")
-        )
-        self.assertTrue(
-            convert(self.cfg.parallel.speed.min_, "kt") <= waypoints[1].ktas
-            and waypoints[1].ktas <= convert(self.cfg.parallel.speed.max_, "kt")
-        )
-        self.assertEqual(waypoints[0].ktas, waypoints[1].ktas)
+        assert convert(self.cfg.parallel.speed.min_, "kt") <= waypoints[0].ktas
+        assert waypoints[0].ktas <= convert(self.cfg.parallel.speed.max_, "kt")
+        assert convert(self.cfg.parallel.speed.min_, "kt") <= waypoints[1].ktas
+        assert waypoints[1].ktas <= convert(self.cfg.parallel.speed.max_, "kt")
+        assert waypoints[0].ktas == waypoints[1].ktas
 
     def test_generate_parallel_waypoints_constant_altitude(self):
         waypoints = generate_parallel_waypoints(self.cfg)
-        self.assertEqual(waypoints[0].alt, waypoints[1].alt)
+        assert waypoints[0].alt == waypoints[1].alt
 
     def test_generate_parallel_waypoints_correct_heading(self):
         waypoints = generate_parallel_waypoints(self.cfg)
@@ -547,17 +535,17 @@ class TestScenarioGeneration(unittest.TestCase):
             waypoints[1].lon,
             waypoints[1].lat,
         )
-        az = az % 360
+        az %= 360
         self.assertAlmostEqual(az, self.cfg.heading + 180, delta=0.1)
 
     def test_generate_parallel_waypoints_correct_properties(self):
         waypoints = generate_parallel_waypoints(self.cfg)
-        self.assertFalse(waypoints[0].on_ground)
-        self.assertFalse(waypoints[0].gear_down)
-        self.assertFalse(waypoints[0].flaps_down)
-        self.assertFalse(waypoints[1].on_ground)
-        self.assertFalse(waypoints[1].gear_down)
-        self.assertFalse(waypoints[1].flaps_down)
+        assert not waypoints[0].on_ground
+        assert not waypoints[0].gear_down
+        assert not waypoints[0].flaps_down
+        assert not waypoints[1].on_ground
+        assert not waypoints[1].gear_down
+        assert not waypoints[1].flaps_down
 
     @pytest.mark.skip(
         reason="Currently not working due to problem with different speeds"
@@ -593,7 +581,7 @@ class TestScenarioGeneration(unittest.TestCase):
             if dist1 < 10 or dist2 < 10:
                 continue
 
-            self.assertIsNone(
+            assert (
                 line_intersection(
                     ownship_start[0],
                     ownship_start[1],
@@ -604,6 +592,7 @@ class TestScenarioGeneration(unittest.TestCase):
                     intruder_end[0],
                     intruder_end[1],
                 )
+                is None
             )
 
     @patch("pycasx.scenario.scenario.uuid.uuid4")
@@ -677,7 +666,7 @@ class TestScenarioGeneration(unittest.TestCase):
     @patch("pycasx.scenario.scenario.create_scenario")
     def test_create_scenarios(self, mock_create_scenario: MagicMock):
         create_scenarios(self.cfg)
-        self.assertEqual(mock_create_scenario.call_count, self.cfg.n_scenarios)
+        assert mock_create_scenario.call_count == self.cfg.n_scenarios
         mock_create_scenario.assert_called_with(self.cfg)
 
     @patch("pycasx.cli.scenarios.create_scenarios_")
@@ -687,23 +676,23 @@ class TestScenarioGeneration(unittest.TestCase):
 
     def test_convert_int_to_float(self):
         result = convert(1)
-        self.assertIsInstance(result, float)
-        self.assertEqual(result, 1.0)
+        assert isinstance(result, float)
+        assert result == 1.0
 
     def test_convert_float_to_float(self):
         result = convert(1.0)
-        self.assertIsInstance(result, float)
-        self.assertEqual(result, 1.0)
+        assert isinstance(result, float)
+        assert result == 1.0
 
     def test_convert_unit_to_float(self):
         result = convert("1ft", "ft")
-        self.assertIsInstance(result, float)
-        self.assertEqual(result, 1.0)
+        assert isinstance(result, float)
+        assert result == 1.0
 
     def test_convert_convert_unit(self):
         result = convert("1ft", "m")
-        self.assertIsInstance(result, float)
-        self.assertEqual(result, ureg.Quantity(1, "foot").to("meter").magnitude)
+        assert isinstance(result, float)
+        assert result == ureg.Quantity(1, "foot").to("meter").magnitude
 
 
 if __name__ == "__main__":
