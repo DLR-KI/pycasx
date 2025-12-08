@@ -30,6 +30,6 @@ jobs:
         uses: astral-sh/setup-uv@v7
       - name: Install Python dependencies
         run: |
-          uv sync --groups ci
+          uv sync --group ci
       - name: Static typechecking with mypy
         uses: tsuyoshicho/action-mypy@v5

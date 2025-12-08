@@ -33,7 +33,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
       - name: Install Python dependencies
         run: |
-          uv sync --groups tests
+          uv sync --group tests
       - name: Test with pytest
         run: |
           pytest

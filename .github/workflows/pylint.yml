@@ -27,7 +27,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
       - name: Install Python dependencies
         run: |
-          uv sync --groups ci
+          uv sync --group ci
       - name: Analysing the code with pylint
         run: |
           pylint --output-format=text pycasx
