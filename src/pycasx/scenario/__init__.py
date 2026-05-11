@@ -90,18 +90,18 @@ class GeographicCoordinates:
 
 
 @overload
-def convert(value: int | float) -> float: ...
+def convert(value: float) -> float: ...
 
 
 @overload
-def convert(value: int | float, unit: str) -> float: ...
+def convert(value: float, unit: str) -> float: ...
 
 
 @overload
 def convert(value: str, unit: str) -> float: ...
 
 
-def convert(value: int | float | str, unit: str = "") -> float:
+def convert(value: float | str, unit: str = "") -> float:
     """Convert a value to a specific unit.
 
     This function takes a value and a unit and converts the value to the
