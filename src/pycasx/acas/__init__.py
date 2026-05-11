@@ -450,15 +450,16 @@ class APIVCASStateVariables:
 
 @dataclass
 class AutoavoidInfo:  # pylint: disable=too-many-instance-attributes
-    """An extended aircraft representation incl. the current timestamp.
+    """An extended aircraft representation incl.
 
-    Attributes:
-        active (bool): Whether autoavoid is active.
-        mode (Optional[Literal["hcas", "vcas"]]): The autoavoid mode to
-            use.
-        action (Optional[float]): The action to take.
-        command (Optional[float]): The command issued to FlightGear.
-        timestamp (float): The timestamp of the information.
+    the current timestamp.
+        Attributes:
+            active (bool): Whether autoavoid is active.
+            mode (Optional[Literal["hcas", "vcas"]]): The autoavoid mode to
+                use.
+            action (Optional[float]): The action to take.
+            command (Optional[float]): The command issued to FlightGear.
+            timestamp (float): The timestamp of the information.
     """
 
     active: bool
@@ -470,23 +471,24 @@ class AutoavoidInfo:  # pylint: disable=too-many-instance-attributes
 
 @dataclass
 class ExtendedAircraft:  # pylint: disable=too-many-instance-attributes
-    """An extended aircraft representation incl. the current timestamp.
+    """An extended aircraft representation incl.
 
-    Attributes:
-        call_sign (str): The call_sign of the aircraft.
-        altitude (float): The aircraft's current altitude, measured
-            in feet.
-        vertical_speed (float): The aircraft's current vertical
-            speed, measured in feet per second.
-        true_airspeed (float): The aircraft's current true airspeed,
-            measured in knots.
-        heading (float): The aircraft's current heading, measured in
-            degrees.
-        latitude (float): The aircraft's current latitude, measured
-            in degrees.
-        longitude (float): The aircraft's current longitude, measured
-            in degrees.
-        timestamp (float): The timestamp of the information.
+    the current timestamp.
+        Attributes:
+            call_sign (str): The call_sign of the aircraft.
+            altitude (float): The aircraft's current altitude, measured
+                in feet.
+            vertical_speed (float): The aircraft's current vertical
+                speed, measured in feet per second.
+            true_airspeed (float): The aircraft's current true airspeed,
+                measured in knots.
+            heading (float): The aircraft's current heading, measured in
+                degrees.
+            latitude (float): The aircraft's current latitude, measured
+                in degrees.
+            longitude (float): The aircraft's current longitude, measured
+                in degrees.
+            timestamp (float): The timestamp of the information.
     """
 
     call_sign: str

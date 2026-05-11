@@ -75,7 +75,6 @@ def line_intersection(
         tuple[float, float] | None: The intersection point (lon, lat)
             if the lines intersect, else None
     """
-
     # Define the coordinate system
     crs = pyproj.CRS("WGS84")
 
