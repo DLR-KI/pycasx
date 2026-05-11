@@ -33,11 +33,11 @@ repos:
         language: python
         name: Check licenses of Python dependencies
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 3.6.0
+    rev: 3.6.1
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.35.0
+    rev: 0.37.2
     hooks:
       - id: check-github-workflows
       - id: check-github-actions
@@ -54,7 +54,7 @@ repos:
           - flake8-docstrings-complete
           - flake8-pyproject
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.8
+    rev: v0.15.12
     hooks:
       - id: ruff-check
         name: Linting Python code (ruff)
@@ -62,7 +62,7 @@ repos:
       - id: ruff-format
         name: Formatting Python code (ruff)
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.2
     hooks:
       - id: codespell
         name: Fixing common spelling mistakes
@@ -70,25 +70,25 @@ repos:
           - --write-changes
         exclude: uv.lock
   - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.7
+    rev: v1.7.8
     hooks:
       - id: docformatter
         name: Fixing docstring formatting
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.46.0
+    rev: v0.48.0
     hooks:
       - id: markdownlint
         name: Fixing markdown linting errors
         args: [--disable, MD013, MD033, --fix]
   - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v2.15.0
+    rev: v2.16.0
     hooks:
       - id: pretty-format-yaml
         args: [--autofix, --indent, "2", --offset, "2", --preserve-quotes]
       - id: pretty-format-toml
         args: [--autofix]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.0
+    rev: v2.0.0
     hooks:
       - id: mypy
         name: Static typechecking (mypy)
