@@ -453,7 +453,8 @@ class AutoavoidInfo:  # pylint: disable=too-many-instance-attributes
     """An extended aircraft representation incl.
 
     the current timestamp.
-        Attributes:
+
+    Attributes:
             active (bool): Whether autoavoid is active.
             mode (Optional[Literal["hcas", "vcas"]]): The autoavoid mode to
                 use.
@@ -474,7 +475,8 @@ class ExtendedAircraft:  # pylint: disable=too-many-instance-attributes
     """An extended aircraft representation incl.
 
     the current timestamp.
-        Attributes:
+
+    Attributes:
             call_sign (str): The call_sign of the aircraft.
             altitude (float): The aircraft's current altitude, measured
                 in feet.
