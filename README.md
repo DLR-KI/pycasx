@@ -8,38 +8,39 @@ SPDX-License-Identifier: CC-BY-4.0
 <img src="https://raw.githubusercontent.com/DLR-KI/pycasx/main/docs/_static/pyCASX_logo.svg" alt="pyCASX Logo" width="300">
 </h1><br>
 
-# `pyCASX` &ndash; A Python implementation of ACAS X<sub>A</sub> and ACAS X<sub>U</sub> for Flightgear
+# `pyCASX` &ndash; A Python implementation of ACAS Xa and ACAS Xu for Flightgear
 
 [![The latest version of pycasx can be found on PyPI.](https://img.shields.io/pypi/v/pycasx.svg)](https://pypi.python.org/pypi/pycasx)
 [![Information on what versions of Python pycasx supports can be found on PyPI.](https://img.shields.io/pypi/pyversions/pycasx.svg)](https://pypi.python.org/pypi/pycasx)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/DLR-KI/pycasx/main.svg)](https://results.pre-commit.ci/latest/github/DLR-KI/pycasx/main)
+[![prek](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/j178/prek/master/docs/assets/badge-v0.json)](https://github.com/j178/prek)
+[![Prek checks](https://github.com/DLR-KI/pycasx/actions/workflows/prek.yaml/badge.svg)](https://github.com/DLR-KI/pycasx/actions/workflows/prek.yaml)
 [![Python tests (pytest)](https://github.com/DLR-KI/pycasx/actions/workflows/pytest.yml/badge.svg)](https://github.com/DLR-KI/pycasx/actions/workflows/pytest.yml)
 [![Docs status](https://readthedocs.org/projects/pycasx/badge/)](https://pycasx.readthedocs.io/)
 [![REUSE status](https://api.reuse.software/badge/github.com/DLR-KI/pycasx)](https://api.reuse.software/info/github.com/DLR-KI/pycasx)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13815668.svg)](https://doi.org/10.5281/zenodo.13815668)
 
-Implementation of ACAS X<sub>A</sub> and ACAS X<sub>U</sub> with neural networks for FlightGear.
+Implementation of ACAS Xa and ACAS Xu with neural networks for FlightGear.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Description](#description)
-- [Installation](#installation)
-  - [Requirements](#requirements)
-  - [Users](#users)
-    - [Installation via `pipx`](#installation-via-pipx)
-    - [Installation via `pip`](#installation-via-pip)
-  - [Development](#development)
-  - [`pre-commit`](#pre-commit)
-  - [VS Code](#vs-code)
-- [Usage](#usage)
-  - [Launching ACAS X](#launching-acas-x)
-  - [Other options](#other-options)
-    - [`onnx` or `make_onnx`](#onnx-or-make_onnx)
-    - [`launch`](#launch)
-    - [`acasx`](#acasx)
-  - [Overwriting parameters](#overwriting-parameters)
-- [Citation](#citation)
+- [`pyCASX` – A Python implementation of ACAS Xa and ACAS Xu for Flightgear](#pycasx--a-python-implementation-of-acas-xa-and-acas-xu-for-flightgear)
+  - [Description](#description)
+  - [Installation](#installation)
+    - [Requirements](#requirements)
+    - [Users](#users)
+      - [Installation via `uvx`](#installation-via-uvx)
+      - [Installation via `uv`](#installation-via-uv)
+    - [Development](#development)
+    - [VS Code](#vs-code)
+  - [Usage](#usage)
+    - [Launching ACAS X](#launching-acas-x)
+    - [Other options](#other-options)
+      - [`onnx` or `make_onnx`](#onnx-or-make_onnx)
+      - [`launch`](#launch)
+      - [`acasx`](#acasx)
+    - [Overwriting parameters](#overwriting-parameters)
+  - [Citation](#citation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -55,33 +56,25 @@ Please also see the documentation at <https://pycasx.readthedocs.io>.
 
 ### Requirements
 
-- Python 3.8 or higher (3.12 is currently not supported)
+- Python 3.11 or higher (3.14 is currently not supported)
 - [FlightGear](https://www.flightgear.org/) 2020.3.18 or higher
 
 ### Users
 
-If you only want to use `pycasx` as a command-line tool and not develop it, you can install it via `pip` or `pipx`.
-However, `pipx` is recommended, as it will install the package in an isolated environment and thus not interfere with other packages.
+If you only want to use `pycasx` as a command-line tool and not develop it, you can install it via `uv` or `uvx`.
+However, `uvx` is recommended, as it will install the package in an isolated environment and thus not interfere with other packages.
 
-#### Installation via `pipx`
+#### Installation via `uvx`
 
-Ensure you have [`pipx`](https://pipx.pypa.io/stable/) installed.
-If not, install it via
-
-```shell
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
-```
-
-Afterwards, install `pycasx` via
+Install `pycasx` via
 
 ```shell
-pipx install git+https://https://github.com/DLR-KI/pycasx.git
+uvx install git+https://https://github.com/DLR-KI/pycasx.git
 ```
 
-#### Installation via `pip`
+#### Installation via `uv`
 
-**This is not recommended! Proceed at your own risk! For just using the package, `pipx` is recommended**
+**This is not recommended! Proceed at your own risk! For just using the package, `uvx` is recommended**
 
 First, clone the repository
 
@@ -92,20 +85,17 @@ git clone https://https://github.com/DLR-KI/pycasx.git
 _Optional:_ create yourself a virtual environment and activate it.
 
 ```shell
-pip install virtualenv
-virtualenv .pycasx-venv
-source .pycasx-venv/bin/activate
+uv venv
+source .venv/bin/activate
 ```
 
 Now, install the package via
 
 ```shell
-pip install -e .
+uv sync
 ```
 
 for basic features.
-
-**NOTE:** for some virtual environments, especially with Windows, you might need to use `python` instead of `python3`  and might also need to use `python -m pip` instead of `pip`.
 
 ### Development
 
@@ -118,40 +108,15 @@ git clone https://https://github.com/DLR-KI/pycasx.git
 Then, it is recommended to create a virtual environment for the software:
 
 ```shell
-pip install virtualenv
-virtualenv .pycasx-venv
-source .pycasx-venv/bin/activate
+uv venv
+source .venv/bin/activate
 ```
 
 Afterwards, install the software and its dependencies:
 
 ```shell
-pip install -e '.[all]'
+uv sync
 ```
-
-Next, install the provided pre-commit hooks:
-
-```shell
-pre-commit install
-```
-
-### `pre-commit`
-
-Prior to any commit, the hooks defined in [`.pre-commit-config.yaml`](./.pre-commit-config.yaml) will be ran.
-A failure in any hook will block the commit.
-Although, most of the errors, like formatting, will correct themselves.
-You just have to re-add all changed files and commit again.
-Be also aware, that the pipeline can take a few seconds to complete.
-
-Alternatively, you can run the pipeline at any time to invoke changes before they block commits with
-
-```shell
-pre-commit run --all-files
-```
-
-Running the pre-commit pipeline manually once before the first commit is recommended.
-It will install all required tools and dependencies and you'll see what's going on.
-Otherwise you might be surprised why committing takes so long.
 
 ### VS Code
 
