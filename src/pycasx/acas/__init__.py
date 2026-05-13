@@ -453,10 +453,11 @@ class AutoavoidInfo:  # pylint: disable=too-many-instance-attributes
     """An extended aircraft representation incl.
 
     the current timestamp.
-        Attributes:
+
+    Attributes:
             active (bool): Whether autoavoid is active.
-            mode (Optional[Literal["hcas", "vcas"]]): The autoavoid mode to
-                use.
+            mode (Optional[Literal["hcas", "vcas"]]): The autoavoid mode
+                to use.
             action (Optional[float]): The action to take.
             command (Optional[float]): The command issued to FlightGear.
             timestamp (float): The timestamp of the information.
@@ -474,7 +475,8 @@ class ExtendedAircraft:  # pylint: disable=too-many-instance-attributes
     """An extended aircraft representation incl.
 
     the current timestamp.
-        Attributes:
+
+    Attributes:
             call_sign (str): The call_sign of the aircraft.
             altitude (float): The aircraft's current altitude, measured
                 in feet.
@@ -486,8 +488,8 @@ class ExtendedAircraft:  # pylint: disable=too-many-instance-attributes
                 degrees.
             latitude (float): The aircraft's current latitude, measured
                 in degrees.
-            longitude (float): The aircraft's current longitude, measured
-                in degrees.
+            longitude (float): The aircraft's current longitude,
+                measured in degrees.
             timestamp (float): The timestamp of the information.
     """
 

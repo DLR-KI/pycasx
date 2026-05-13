@@ -4,7 +4,7 @@
 
 [build-system]
 build-backend = "uv_build"
-requires = ["uv_build>=0.8.11"]
+requires = ["uv_build>=0.10.0,<1.0.0"]
 
 [dependency-groups]
 ci = [
@@ -12,7 +12,6 @@ ci = [
   "flake8-docstrings",
   "flake8-pyproject",
   "flake8",
-  "mypy",
   "parameterized",
   "pylint-per-file-ignores",
   "pylint"
@@ -20,18 +19,20 @@ ci = [
 dev = [
   "lxml-stubs",
   "types-requests",
-  "prek>=0.2.20",
+  "prek>=0.3.5",
   "reuse>=6.2.0",
-  "ruff>=0.13.3",
-  "ty>=0.0.1a29"
+  "ruff>=0.15.5",
+  "ty>=0.0.21",
+  "uv>=0.10.9"
 ]
 docs = [
   "sphinx>=8.0.0",
   "sphinx-autodoc-typehints",
   "sphinx-rtd-theme",
-  "sphinx-autoapi"
+  "sphinx-autoapi",
+  "astroid<4"
 ]
-tests = ["coverage", "pytest-cov", "pytest>=7.4.0", "shapely"]
+tests = ["coverage", "pytest-cov", "pytest>=9.0.0", "shapely"]
 
 [project]
 authors = [{name = "Johann Christensen", email = "johann.christensen@dlr.de"}]
@@ -41,7 +42,6 @@ classifiers = [
   "Intended Audience :: Developers",
   "Intended Audience :: End Users/Desktop",
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
   "Operating System :: MacOS :: MacOS X",
   "Operating System :: Microsoft :: Windows :: Windows 10",
@@ -59,30 +59,30 @@ classifiers = [
   "Typing :: Typed"
 ]
 dependencies = [
-  "fastapi[all]>=0.124.0",
+  "fastapi[all]>=0.136.1",
   "flightgear-python>=2.0.3",
   "hydra-core>=1.3.2",
-  "libtmux>=0.52.1",
+  "libtmux>=0.56.0",
   "loguru>=0.7.3",
-  "lxml>=6.0.2",
-  "numpy>=2.2.6",
-  "onnx>=1.20.0",
+  "lxml>=6.1.0",
+  "numpy>=2.4.4",
+  "onnx>=1.21.0",
   "onnx2torch>=1.5.15",
-  "onnxruntime>=1.23.2",
-  "pillow>=12.0.0",
-  "pint>=0.24.4",
-  "pyproj>=3.7.1",
-  "rich>=14.2.0",
-  "scipy>=1.15.3",
-  "torch>=2.9.1",
-  "tqdm>=4.67.1"
+  "onnxruntime>=1.26.0",
+  "pillow>=12.2.0",
+  "pint>=0.25.3",
+  "pyproj>=3.7.2",
+  "rich>=15.0.0",
+  "scipy>=1.17.1",
+  "torch>=2.11.0",
+  "tqdm>=4.67.3"
 ]
 description = "A Python implementation of ACAS XA and ACAS XU for Flightgear."
 license = "MIT"
 license-files = ["LICENSES/*"]
 name = "pycasx"
 readme = "README.md"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.11,<3.14"
 version = "1.0.1"
 
 [project.scripts]
@@ -93,6 +93,9 @@ Documentation = "https://pycasx.readthedocs.io/"
 Homepage = "https://github.com/DLR-KI/pycasx.git"
 Source = "https://github.com/DLR-KI/pycasx.git"
 Tracker = "https://github.com/DLR-KI/pycasx/-/issues"
+
+[tool.codespell]
+ignore-words-list = "astroid"
 
 [tool.flake8]
 check-return-types = true
@@ -110,10 +113,6 @@ style = "google"
 ignore_packages = ["nvidia-*", "ujson"]
 using = "PEP631"
 zero = true
-
-[tool.mypy]
-ignore_missing_imports = true
-python_version = "3.10"
 
 [tool.pylint.MASTER]
 extension-pkg-whitelist = ["lxml"]
@@ -143,7 +142,7 @@ addopts = "--cov=src/pycasx/ --cov-report=term-missing --cov-report=xml:coverage
 testpaths = ["tests"]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.format]
 preview = true
@@ -201,7 +200,18 @@ extend-select = [
 # S311: We don't need perfect cryptography in this project
 # ANN401: Allow Any types
 # S404, S603: Allow use of subprocess module without additional security measures
-ignore = ["E203", "SIM300", "D105", "D107", "S311", "ANN401", "S404", "S603"]
+# RUF067: Allow code other than docstrings and re-exports in __init__.py files
+ignore = [
+  "ANN401",
+  "D105",
+  "D107",
+  "E203",
+  "RUF067",
+  "S311",
+  "S404",
+  "S603",
+  "SIM300"
+]
 preview = true
 
 [tool.ruff.lint.flake8-tidy-imports]
@@ -213,16 +223,23 @@ ban-relative-imports = "all"
 "src/pycasx/tools/NNet/**/*.py" = ["ALL"]
 "src/pycasx/tools/NNet/nnet.py" = ["ALL"]
 "tests/*" = [
-  "S101",
   "ANN",
+  "ANN201",
+  "ANN205",
   "D",
   "DOC",
   "E501",
   "NPY002",
-  "PT",
+  "PLC0415",
+  "PLC2701",
   "PLR",
-  "SLF001",
+  "PLR0904",
+  "PLR2004",
+  "PT",
+  "RUF069",
+  "S101",
   "S307",
+  "SLF001",
   "W505"
 ]
 

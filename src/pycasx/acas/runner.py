@@ -213,7 +213,7 @@ class Runner:
                     lines
                 )
 
-            except Exception as e:  # noqa: PERF203, BLE001 # pylint: disable=broad-except
+            except Exception as e:  # noqa: BLE001 # pylint: disable=broad-except
                 logger.error(traceback.format_exc() + f"\nError in logging: {e}")
 
     def init_log(self) -> None:
